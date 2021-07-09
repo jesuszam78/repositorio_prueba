@@ -1,0 +1,364 @@
+USE [restaurante_elgato]
+GO
+/****** Object:  Table [dbo].[chefs]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[chefs](
+	[cedula_chef] [int] NOT NULL,
+	[nombre] [varchar](50) NULL,
+	[apellido] [varchar](50) NULL,
+	[telefono] [int] NULL,
+	[estudios] [varchar](70) NULL,
+	[especialidad] [varchar](80) NULL,
+ CONSTRAINT [PK_chefs] PRIMARY KEY CLUSTERED 
+(
+	[cedula_chef] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[clientes]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[clientes](
+	[cedula_cliente] [int] NOT NULL,
+	[nombres] [varchar](50) NULL,
+	[apellidos] [varchar](50) NULL,
+	[telefono] [int] NULL,
+	[correo] [varchar](50) NULL,
+	[direccion] [varchar](50) NULL,
+ CONSTRAINT [PK_clientes] PRIMARY KEY CLUSTERED 
+(
+	[cedula_cliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[horario_chef]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[horario_chef](
+	[id_horario] [int] NOT NULL,
+	[hora_entrada] [time](7) NULL,
+	[hora_salida] [time](7) NULL,
+	[fecha_turno] [date] NULL,
+	[fech_turno_salida] [date] NULL,
+	[cedula_pk] [int] NULL,
+ CONSTRAINT [PK_horario_chef] PRIMARY KEY CLUSTERED 
+(
+	[id_horario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[horario_meseros]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[horario_meseros](
+	[id_horario] [int] NOT NULL,
+	[hora_entrada] [time](7) NULL,
+	[hora_salida] [time](7) NULL,
+	[fech_inicio_turno] [date] NULL,
+	[fech_fin_turno] [date] NULL,
+	[cedula_meseropk] [int] NULL,
+ CONSTRAINT [PK_horario_meseros] PRIMARY KEY CLUSTERED 
+(
+	[id_horario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[menu]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[menu](
+	[id_menu] [int] NOT NULL,
+	[tipo_menu] [varchar](50) NULL,
+ CONSTRAINT [PK_menu] PRIMARY KEY CLUSTERED 
+(
+	[id_menu] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[menu_carta]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[menu_carta](
+	[id_carta] [int] NOT NULL,
+	[cedula_chefpk] [int] NULL,
+	[id_menu] [int] NULL,
+	[descripcion] [varchar](50) NULL,
+	[cedula_clientpk] [int] NULL,
+ CONSTRAINT [PK_menu_carta] PRIMARY KEY CLUSTERED 
+(
+	[id_carta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[mesas]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[mesas](
+	[id_mesas] [int] NOT NULL,
+	[estado] [varchar](50) NULL,
+	[capacidad_cliente] [int] NULL,
+	[numero_mesa] [int] NULL,
+	[id_salonpk] [int] NULL,
+	[cedula_clientepk] [int] NULL,
+	[cedula_meseropk] [int] NULL,
+ CONSTRAINT [PK_mesas] PRIMARY KEY CLUSTERED 
+(
+	[id_mesas] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[meseros]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[meseros](
+	[cedula_mesero] [int] NOT NULL,
+	[nombres_mes] [varchar](40) NULL,
+	[apellidos_m] [varchar](40) NULL,
+	[telefonos] [int] NULL,
+	[edad] [int] NULL,
+	[salario] [decimal](6, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[cedula_mesero] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[pedido_cliente]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[pedido_cliente](
+	[idpedido] [int] NOT NULL,
+	[cedula_clientepk] [int] NULL,
+	[id_platos] [int] NULL,
+	[fecha] [date] NULL,
+	[total] [int] NULL,
+ CONSTRAINT [PK_pedido_cliente] PRIMARY KEY CLUSTERED 
+(
+	[idpedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[reservacion]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[reservacion](
+	[id_reserva] [int] NOT NULL,
+	[fecha_reserva] [date] NULL,
+	[hora_reserva] [time](7) NULL,
+	[descripcion] [varchar](50) NULL,
+	[total_tranfer] [decimal](18, 0) NULL,
+	[cedula_clientepk] [int] NULL,
+	[id_mesapk] [int] NULL,
+ CONSTRAINT [PK_reservacion] PRIMARY KEY CLUSTERED 
+(
+	[id_reserva] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[salones]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[salones](
+	[id_salon] [int] NOT NULL,
+	[tipo] [nchar](10) NULL,
+	[capacidad_mesas] [nchar](10) NULL,
+ CONSTRAINT [PK_salones] PRIMARY KEY CLUSTERED 
+(
+	[id_salon] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tipo_platos]    Script Date: 24/6/2021 21:02:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tipo_platos](
+	[id_platos] [int] NOT NULL,
+	[descripcion1] [varchar](50) NULL,
+	[postre] [varchar](50) NULL,
+	[precio] [decimal](18, 0) NULL,
+	[id_menupk] [int] NULL,
+ CONSTRAINT [PK_tipo_platos] PRIMARY KEY CLUSTERED 
+(
+	[id_platos] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[horario_chef]  WITH CHECK ADD  CONSTRAINT [FK_horario_chef_chefs] FOREIGN KEY([cedula_pk])
+REFERENCES [dbo].[chefs] ([cedula_chef])
+GO
+ALTER TABLE [dbo].[horario_chef] CHECK CONSTRAINT [FK_horario_chef_chefs]
+GO
+ALTER TABLE [dbo].[horario_meseros]  WITH CHECK ADD  CONSTRAINT [FK_horario_meseros_meseros] FOREIGN KEY([cedula_meseropk])
+REFERENCES [dbo].[meseros] ([cedula_mesero])
+GO
+ALTER TABLE [dbo].[horario_meseros] CHECK CONSTRAINT [FK_horario_meseros_meseros]
+GO
+ALTER TABLE [dbo].[menu_carta]  WITH CHECK ADD  CONSTRAINT [FK_menu_carta_chefs] FOREIGN KEY([cedula_chefpk])
+REFERENCES [dbo].[chefs] ([cedula_chef])
+GO
+ALTER TABLE [dbo].[menu_carta] CHECK CONSTRAINT [FK_menu_carta_chefs]
+GO
+ALTER TABLE [dbo].[menu_carta]  WITH CHECK ADD  CONSTRAINT [FK_menu_carta_clientes] FOREIGN KEY([cedula_clientpk])
+REFERENCES [dbo].[clientes] ([cedula_cliente])
+GO
+ALTER TABLE [dbo].[menu_carta] CHECK CONSTRAINT [FK_menu_carta_clientes]
+GO
+ALTER TABLE [dbo].[menu_carta]  WITH CHECK ADD  CONSTRAINT [FK_menu_carta_menu] FOREIGN KEY([id_menu])
+REFERENCES [dbo].[menu] ([id_menu])
+GO
+ALTER TABLE [dbo].[menu_carta] CHECK CONSTRAINT [FK_menu_carta_menu]
+GO
+ALTER TABLE [dbo].[mesas]  WITH CHECK ADD  CONSTRAINT [FK_mesas_meseros1] FOREIGN KEY([cedula_meseropk])
+REFERENCES [dbo].[meseros] ([cedula_mesero])
+GO
+ALTER TABLE [dbo].[mesas] CHECK CONSTRAINT [FK_mesas_meseros1]
+GO
+ALTER TABLE [dbo].[mesas]  WITH CHECK ADD  CONSTRAINT [FK_mesas_salones] FOREIGN KEY([id_salonpk])
+REFERENCES [dbo].[salones] ([id_salon])
+GO
+ALTER TABLE [dbo].[mesas] CHECK CONSTRAINT [FK_mesas_salones]
+GO
+ALTER TABLE [dbo].[pedido_cliente]  WITH CHECK ADD  CONSTRAINT [FK_pedido_cliente_clientes] FOREIGN KEY([cedula_clientepk])
+REFERENCES [dbo].[clientes] ([cedula_cliente])
+GO
+ALTER TABLE [dbo].[pedido_cliente] CHECK CONSTRAINT [FK_pedido_cliente_clientes]
+GO
+ALTER TABLE [dbo].[pedido_cliente]  WITH CHECK ADD  CONSTRAINT [FK_pedido_cliente_tipo_platos] FOREIGN KEY([id_platos])
+REFERENCES [dbo].[tipo_platos] ([id_platos])
+GO
+ALTER TABLE [dbo].[pedido_cliente] CHECK CONSTRAINT [FK_pedido_cliente_tipo_platos]
+GO
+ALTER TABLE [dbo].[reservacion]  WITH CHECK ADD  CONSTRAINT [FK_reservacion_clientes] FOREIGN KEY([cedula_clientepk])
+REFERENCES [dbo].[clientes] ([cedula_cliente])
+GO
+ALTER TABLE [dbo].[reservacion] CHECK CONSTRAINT [FK_reservacion_clientes]
+GO
+ALTER TABLE [dbo].[reservacion]  WITH CHECK ADD  CONSTRAINT [FK_reservacion_mesas] FOREIGN KEY([id_mesapk])
+REFERENCES [dbo].[mesas] ([id_mesas])
+GO
+ALTER TABLE [dbo].[reservacion] CHECK CONSTRAINT [FK_reservacion_mesas]
+GO
+ALTER TABLE [dbo].[tipo_platos]  WITH CHECK ADD  CONSTRAINT [FK_tipo_platos_menu] FOREIGN KEY([id_menupk])
+REFERENCES [dbo].[menu] ([id_menu])
+GO
+ALTER TABLE [dbo].[tipo_platos] CHECK CONSTRAINT [FK_tipo_platos_menu]
+GO
+
+
+select * from chefs
+
+
+INSERT INTO chefs(cedula_chef, nombre, apellido, telefono,estudios,especialidad) 
+VALUES (123456, 'juan', 'Macias',0987653, 'Masterschefs' ,'Gastronomia'),
+       (123457, 'carlos', 'gomez', 3009876,'Gurmet','PArrilla' )
+INSERT INTO clientes(cedula_cliente, nombres, apellidos, telefono,correo,direccion) 
+VALUES (1234568, 'Karla', 'Macias',09876532, 'karla@gmail.com' ,'Manta-cdla jokay'),
+       (1234579, 'Jean', 'gomez', 30098761,'jean@gmail.com','Universitaria-Umi�a' ),
+	   (1234595, 'Leo', 'lopez',09826443,'karla@gmail.com' ,'Calle 13 av16')
+INSERT INTO meseros(cedula_mesero, nombres_mes, apellidos_m, telefonos,edad,salario) 
+VALUES (12345680, 'Diego', 'Macias',09876532,26 ,450.00),
+       (12345790, 'Jose', 'gomez', 30098761,30,480.00 ),
+	   (12345950, 'Sofia', 'lopez',09826443,31,500.00)
+INSERT INTO menu(id_menu,tipo_menu) 
+VALUES (1,'Ejecutivo'),
+       (2,'Gastronomico')
+
+INSERT INTO horario_meseros(id_horario, hora_entrada,hora_salida,fech_inicio_turno,fech_fin_turno,cedula_meseropk) 
+VALUES (42345680, '15:00','23:00' ,'12-05-2020','19-05-2020',12345680),
+       (42345790, '07:00','15:00' ,'12-05-2020','19-05-2020',12345790)
+
+INSERT INTO horario_chef(id_horario, hora_entrada,hora_salida,fecha_turno,fech_turno_salida,cedula_pk) 
+VALUES (42345680, '15:00','23:00' ,'18-05-2020','27-05-2020',123456),
+       (42345790, '07:00','15:00' ,'18-05-2020','27-05-2020',123457)
+INSERT INTO salones(id_salon,tipo,capacidad_mesas) 
+VALUES (5, 'Vip',40),
+       (6, 'Clasico',50)
+INSERT INTO tipo_platos(id_platos,descripcion1,postre,precio,id_menupk) 
+VALUES (1, 'Asado en barbacoa','dulce de tres leches',30.00,1),
+       (2, 'Encebollado mixto','dulce de maracuya',10.00,2)
+
+INSERT INTO menu_carta(id_carta,descripcion,id_menu,cedula_clientpk,cedula_chefpk) 
+VALUES (1, 'Porcion peque�a',2,1234568,123456)
+INSERT INTO mesas(id_mesas,estado,capacidad_cliente,numero_mesa,id_salonpk,cedula_clientepk,cedula_meseropk) 
+VALUES (1, 'ocupada',9 ,4,5,1234568,12345680),
+		(2, 'ocupada',7 ,4,6,1234579,12345680)
+INSERT INTO reservacion(id_reserva,fecha_reserva,hora_reserva,descripcion,total_tranfer,cedula_clientepk,id_mesapk)
+VALUES  (1, '22-02-2021','19:00','familiar' ,22.05,1234568,1),
+		(2, '22-02-2021','18:00','familiar' ,44.05,1234579,2),
+		(3, '30-03-2021','20:00','familiar' ,30.00,1234579,2)
+INSERT INTO pedido_cliente(idpedido,cedula_clientepk,id_platos,fecha,total) 
+VALUES (1, 1234568,1 ,'2021-02-22',30),
+		(2, 1234568,2 ,'2021-02-22',10)
+
+
+
+
+   --cantidad de veces que ha reservado fecha nombre de cliente 
+	   
+select  nombres,fecha_reserva
+from reservacion s inner join  clientes
+on   cedula_cliente=cedula_clientepk where nombres='Jean' order by nombres desc
+
+select    count(id_reserva) as total_reserva 
+
+from reservacion s inner join clientes on cedula_cliente=s.cedula_clientepk where nombres='Jean'
+
+
+
+--cantidad de veces por cada cliente nombre fecha que ha reservado
+
+select  nombres,fecha_reserva,total_tranfer as totalCancelado
+from reservacion s inner join  clientes c
+on   c.cedula_cliente=cedula_clientepk
+where nombres='Karla' order by nombres desc 
+
+select    count(total) as total_cancelado
+
+from pedido_cliente s inner join clientes  c on cedula_cliente=s.cedula_clientepk  where nombres='Karla'
+
+select    count(id_reserva) as total_reserva 
+
+from reservacion s inner join clientes  c on cedula_cliente=s.cedula_clientepk  where nombres='Karla'
+
+
+
+ --fecha en que se vendio mas plato y el total de la venta del dia
+
+select  fecha 
+from pedido_cliente  
+
+select    count(id_platos) as total_Platos_vendidos
+
+from pedido_cliente s inner join clientes  c on cedula_cliente=s.cedula_clientepk  where fecha='2021-02-22'
+
+select    sum(total) as total_Venta_Dia 
+
+from pedido_cliente   where fecha='2021-02-22'
+
+
+select * from reservacion
